@@ -2,10 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(UnitController))]
+
 public class Unit : MonoBehaviour
 {
-    private int team;
+    //Convert to interface after initial build
+
+    private Spawner teamBase;
     private Unit currentTarget;
+    private UnitController controller;
+    private Animator animator;
 
     public Rigidbody2D rb;
 
@@ -29,7 +36,9 @@ public class Unit : MonoBehaviour
     public void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        //initialize current target to base or player/enemy empty unit object
+        controller = GetComponent<UnitController>();
+        teamBase = GetComponentInParent<Spawner>();
+        animator = GetComponentInChildren<Animator>();
     }
 
     public void Update()
@@ -41,20 +50,28 @@ public class Unit : MonoBehaviour
 
     public void FixedUpdate()
     {
-        if (currentState == state.Moving) Move(currentTarget.transform.position);
+        if (currentState == state.Moving) MoveUnit();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.GetComponent<Unit>().team != team)
+        if (collision.GetComponent<Unit>().teamBase != teamBase)
         {
             currentTarget = collision.GetComponent<Unit>();
             setState(state.Attacking);
         }
     }
 
-    public void setTeam(int faction) => team = faction;
-    public void setState(state unitState) => currentState = unitState;
+    public void setTeam(Spawner teamSpawner) => teamBase = teamSpawner;
+
+    public void setState(state unitState)
+    {
+        foreach (AnimatorControllerParameter parameter in animator.parameters)
+        {
+            animator.SetBool(parameter.name, false);
+        }
+        currentState = unitState;
+    } 
 
     public void setAttack(float attk) => attack = attk;
     public void setAttackSpeed(float speed) => attack = speed;
@@ -78,22 +95,27 @@ public class Unit : MonoBehaviour
     {
         //Death Animation
         //disable and add to pool queue
+        animator.SetBool("isDying", true);
+        teamBase.DisableUnit(this);
     }
 
     public void Idle()
     {
+        animator.SetBool("isIdle", true);
         //Idle Animation
     }
 
-    public void Move(Vector2 targetPosition)
-    {
-        //Play movement animation
-        rb.MovePosition(new Vector2(transform.position.x, transform.position.y) + targetPosition * moveSpeed * Time.fixedDeltaTime);
-    }
     public void Attack(Unit target)
     {
         //play attack animation
+        animator.SetBool("isAttacking", true);
         target.Damage(attack);
+    }
+
+    public void MoveUnit()
+    {
+        animator.SetBool("isMoving", true);
+        controller.MoveUnit(transform.right);
     }
 
 }
