@@ -9,10 +9,12 @@ public class Unit : MonoBehaviour
 {
     //Convert to interface after initial build
 
+    [SerializeField]
     private Spawner teamBase;
     private Unit currentTarget;
     private UnitController controller;
     private Animator animator;
+    private bool canAttack = true;
 
     public Rigidbody2D rb;
 
@@ -43,9 +45,15 @@ public class Unit : MonoBehaviour
 
     public void Update()
     {
-        if (currentState == state.Attacking) Attack(currentTarget);
+        if (health <= 0)
+        {
+            setState(state.Death);
+        }
+
+        if (currentState == state.Attacking && canAttack) StartCoroutine(Attack(currentTarget));
         if (currentState == state.Idle) Idle();
-        if (currentState == state.Death) Die();
+        if (currentState == state.Death) StartCoroutine(Die());
+
     }
 
     public void FixedUpdate()
@@ -55,10 +63,22 @@ public class Unit : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.GetComponent<Unit>().teamBase != teamBase)
+        if(collision.tag == "Unit")
         {
-            currentTarget = collision.GetComponent<Unit>();
-            setState(state.Attacking);
+            if(collision.GetComponent<Unit>().teamBase != teamBase)
+            {
+                currentTarget = collision.GetComponent<Unit>();
+                setState(state.Attacking);
+            }
+        }
+
+        if (collision.tag == "Spawner")
+        {
+            if (collision.GetComponent<Spawner>() != this.teamBase)
+            {
+                //currentTarget = collision.GetComponent<Spawner>();
+                setState(state.Death);
+            }
         }
     }
 
@@ -91,11 +111,12 @@ public class Unit : MonoBehaviour
         //heal animation
     }
 
-    public void Die()
+    public IEnumerator Die()
     {
         //Death Animation
         //disable and add to pool queue
         animator.SetBool("isDying", true);
+        yield return new WaitForSeconds(1);
         teamBase.DisableUnit(this);
     }
 
@@ -105,11 +126,14 @@ public class Unit : MonoBehaviour
         //Idle Animation
     }
 
-    public void Attack(Unit target)
+    public IEnumerator Attack(Unit target)
     {
         //play attack animation
+        canAttack = false;
         animator.SetBool("isAttacking", true);
         target.Damage(attack);
+        yield return new WaitForSeconds(attackSpeed);
+        canAttack = true;
     }
 
     public void MoveUnit()

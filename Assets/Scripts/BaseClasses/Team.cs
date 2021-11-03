@@ -4,10 +4,16 @@ using UnityEngine;
 
 public class Team : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public List<Unit> playerTeam;
+
+    public void AddUnit()
     {
-        
+
+    }
+
+    public void RemoveUnit()
+    {
+
     }
 
     // Update is called once per frame
