@@ -139,7 +139,14 @@ public class Unit : MonoBehaviour
     public void MoveUnit()
     {
         animator.SetBool("isMoving", true);
+        //Modify to use nearest enemy as direction
         controller.MoveUnit(transform.right);
+    }
+
+    public void GetNearestEnemy()
+    {
+        //will return position of nearest enemy and cache it
+        //will use this method to call controller.MoveUnit towards nearest enemy's direction
     }
 
 }

@@ -10,7 +10,6 @@ public class GameManager : MonoBehaviour
 
     //Managers
     public AudioManager audioManager;
-    public UIManager uiManager;
     public InputManager inputManager;
 
     //Object Lists
@@ -28,6 +27,9 @@ public class GameManager : MonoBehaviour
     public int playerHealth;
     public int playerActiveUnits = 0;
 
+    //Public flags
+    public bool roundStarted = false;
+
 
     private void Awake()
     {
@@ -42,19 +44,35 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void StartRound()
-    {
-        //clear unit list from last round
-        playerSpawner.ClearUnits();
-        enemySpawner.ClearUnits();
-        //give spawner unit list for current round
-        playerSpawner.AddUnits(playerUnits);
-        enemySpawner.AddUnits(enemyUnits);
-    }
-
-    // Start is called before the first frame update
     void Start()
     {
+        EventsManager.current.onStartRound += StartRound;
+        EventsManager.current.onStopRound += StopRound;
+    }
+
+    public void StartRound()
+    {
+        if (!roundStarted)
+        {
+            //clear unit list from last round
+            playerSpawner.ClearUnits();
+            enemySpawner.ClearUnits();
+            //give spawner unit list for current round
+            playerSpawner.AddUnits(playerUnits);
+            enemySpawner.AddUnits(enemyUnits);
+            roundStarted = true;
+        }
+    }
+
+    public void StopRound()
+    {
+        if (roundStarted)
+        {
+            //clear unit list from last round
+            playerSpawner.ClearUnits();
+            enemySpawner.ClearUnits();
+            roundStarted = false;
+        }
     }
 
     // Update is called once per frame

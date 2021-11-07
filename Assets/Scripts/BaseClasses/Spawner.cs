@@ -32,7 +32,7 @@ public class Spawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (canSpawn && currentUnits < maxUnits) StartCoroutine(SpawnUnit());
+        if (GameManager.Instance.roundStarted && canSpawn && currentUnits < maxUnits) StartCoroutine(SpawnUnit());
     }
 
     //Methods for managing units per round, each round requires player to set desired units for his team
