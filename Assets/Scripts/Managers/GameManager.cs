@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public InputManager inputManager;
 
     //Object Lists
+    public List<Unit> availablePlayerUnits;
     public List<Unit> playerUnits;
     public List<Unit> enemyUnits;
     public List<Consumable> playerConsumables;
@@ -35,6 +36,8 @@ public class GameManager : MonoBehaviour
     {
         if (_instance != null && _instance != this)
         {
+            EventsManager.current.onStartRound -= StartRound;
+            EventsManager.current.onStopRound -= StopRound;
             Destroy(this.gameObject);
         }
         else

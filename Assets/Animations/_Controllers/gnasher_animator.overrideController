@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: gnasher_animator
+  m_Controller: {fileID: 9100000, guid: 97a1b475d735e134cadebe8b16d4106f, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 4f7b0ae476bb8e346b90e139700422a7, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: ac3e5c22bfdcc75448ecfc8db4773c11, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: b5700dc040ac7e84daab3d8caa5a1212, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 2f93a0cd4989ca54687bb383ba7115a7, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 17b1ab39558bc714a89a7ad3b46abb34, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: b6803585e637add4b9e54de5ad5fa4b4, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 37c6de5269aac394ca41ff196a98a109, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 2031e4bb244b0aa48a31795d503bae58, type: 2}

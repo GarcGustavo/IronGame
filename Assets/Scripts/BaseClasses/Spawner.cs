@@ -46,6 +46,7 @@ public class Spawner : MonoBehaviour
             {
                 Unit unitInstance = Instantiate(unit, transform);
                 units.Add(unitInstance);
+                //unitInstance.id = currentUnits;
                 currentUnits++;
                 DisableUnit(unitInstance);
             }

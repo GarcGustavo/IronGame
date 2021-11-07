@@ -16,6 +16,11 @@ public class EventsManager : MonoBehaviour
     public event Action onPause;
     public event Action onStartMainMenu;
 
+    //TODO add if statement to check if id == this.id in unit calling this, add id var to unit
+    public event Action<int> onAddUnit;
+    public event Action<int> onDamageUnit;
+    public event Action<int> onHealUnit;
+
     //UI events
     public event Action onOpenItems;
     public event Action onOpenTeam;
@@ -70,6 +75,14 @@ public class EventsManager : MonoBehaviour
         if (onOpenTeam != null)
         {
             onOpenTeam();
+        }
+    }
+
+    public void AddUnit(int id)
+    {
+        if (onAddUnit != null)
+        {
+            onAddUnit(id);
         }
     }
 }

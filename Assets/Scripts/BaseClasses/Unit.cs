@@ -18,6 +18,7 @@ public class Unit : MonoBehaviour
 
     public Rigidbody2D rb;
 
+    //public int id;
     public float health;
     public float attack;
     public float defense;
