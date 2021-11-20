@@ -117,7 +117,7 @@ GameObject:
   - component: {fileID: 2898846570807376776}
   - component: {fileID: 2898846570807376823}
   m_Layer: 0
-  m_Name: BaseUnit
+  m_Name: Warrior
   m_TagString: Unit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -150,6 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16365e68b621ad449b2846aa398798d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultSprite: {fileID: 21300000, guid: 248617c9bc86d2d468211c77b71976df, type: 3}
   teamBase: {fileID: 0}
   rb: {fileID: 2898846570807376776}
   health: 10

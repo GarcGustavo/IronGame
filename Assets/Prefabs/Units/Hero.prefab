@@ -55,9 +55,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2898846570807376779, guid: 66bfcc57154314446b5bf31a71787178, type: 3}
+      propertyPath: defaultSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: aee8cffe10bb1fa4e85abedf41183b09, type: 3}
     - target: {fileID: 2898846570807376780, guid: 66bfcc57154314446b5bf31a71787178, type: 3}
       propertyPath: m_Name
-      value: Hero Variant
+      value: Hero
       objectReference: {fileID: 0}
     - target: {fileID: 5270733819141669648, guid: 66bfcc57154314446b5bf31a71787178, type: 3}
       propertyPath: m_Controller

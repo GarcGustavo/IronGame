@@ -7,8 +7,13 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
+    //TODO
+    //Seperate functionality into single components
+    //Turn this class into data storage
+    //Possibly convert to event based pattern
     //Convert to interface after initial build
-
+    
+    public Sprite defaultSprite;
     [SerializeField]
     private Spawner teamBase;
     private Unit currentTarget;
@@ -42,6 +47,10 @@ public class Unit : MonoBehaviour
         controller = GetComponent<UnitController>();
         teamBase = GetComponentInParent<Spawner>();
         animator = GetComponentInChildren<Animator>();
+    }
+
+    private void Start()
+    {
     }
 
     public void Update()
@@ -135,6 +144,7 @@ public class Unit : MonoBehaviour
         target.Damage(attack);
         yield return new WaitForSeconds(attackSpeed);
         canAttack = true;
+
     }
 
     public void MoveUnit()
